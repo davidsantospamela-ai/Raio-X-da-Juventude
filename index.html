@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raio-X da Juventude | Análise Social e Educacional</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 1.5rem;
+            color: var(--dark);
+            font-size: 1.8rem;
+        }
+
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .chart-placeholder {
+            background: #e2e8f0;
+            height: 250px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .chart-butterflies {
+            position: relative;
+            height: 250px;
+            margin: 1rem 0;
+            overflow: hidden;
+            border: 1px solid #e9d5ff;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #faf5ff 0%, #fff 100%);
+        }
+
+        .chart-flower {
+            position: relative;
+            height: 250px;
+            margin: 1rem 0;
+            overflow: hidden;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #eff6ff 0%, #fff 100%);
+        }
+
+        .chart-grid {
+            position: absolute;
+            inset: 20px 20px 38px 20px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            border-bottom: 1px solid #c4b5fd;
+            background: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, #ede9fe 40px);
+        }
+
+        .chart-grid-blue {
+            border-bottom-color: #93c5fd;
+            background: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, #dbeafe 40px);
+        }
+
+        .chart-bar {
+            width: 11%;
+            height: var(--bar-height);
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(180deg, #a855f7, #6d28d9);
+            box-shadow: 0 3px 8px rgba(109, 40, 217, 0.18);
+        }
+
+        .chart-bar-blue {
+            background: linear-gradient(180deg, #60a5fa, #2563eb);
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.18);
+        }
+
+        .chart-butterfly {
+            position: absolute;
+            z-index: 1;
+            font-size: 1.5rem;
+            animation: butterfly-drift 4s ease-in-out infinite alternate;
+        }
+
+        .chart-butterfly-one {
+            top: 21%;
+            left: 18%;
+        }
+
+        .chart-butterfly-two {
+            top: 38%;
+            right: 17%;
+            animation-delay: -2s;
+        }
+
+        .chart-butterfly-three {
+            top: 12%;
+            right: 38%;
+            font-size: 1.1rem;
+            animation-delay: -1s;
+        }
+
+        .chart-butterfly-four {
+            top: 62%;
+            left: 8%;
+            font-size: 1.1rem;
+            animation-delay: -3s;
+        }
+
+        .chart-butterfly-five {
+            top: 58%;
+            right: 8%;
+            font-size: 1.1rem;
+            animation-delay: -1.5s;
+        }
+
+        .chart-caption {
+            position: absolute;
+            right: 12px;
+            bottom: 8px;
+            color: #6b21a8;
+            font-size: 0.75rem;
+        }
+
+        .chart-caption-blue {
+            color: #1d4ed8;
+        }
+
+        .chart-flower-icon {
+            position: absolute;
+            z-index: 1;
+            top: 24%;
+            right: 20%;
+            font-size: 1.7rem;
+            animation: butterfly-drift 4s ease-in-out infinite alternate;
+        }
+
+        .chart-flower-two {
+            top: 18%;
+            left: 17%;
+            font-size: 1.3rem;
+            animation-delay: -1.5s;
+        }
+
+        .chart-flower-three {
+            top: 62%;
+            left: 43%;
+            font-size: 1.2rem;
+            animation-delay: -3s;
+        }
+
+        .chart-flower-four {
+            top: 57%;
+            right: 8%;
+            font-size: 1.25rem;
+            animation-delay: -2s;
+        }
+
+        @keyframes butterfly-drift {
+            from { transform: translateY(0) rotate(-8deg); }
+            to { transform: translateY(-7px) rotate(8deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .chart-butterfly, .chart-flower-icon { animation: none; }
+        }
+
+        .grid-pilares {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .pilar-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-top: 5px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .pilar-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Projeto: Raio-X da Juventude</h1>
+        <p>Diagnosticando as condições de vida, socioeconômicas e educacionais de jovens para embasar políticas públicas e ações práticas de mudança.</p>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="section-title">📊 Dashboard de Insights (Dados Coletados)</h2>
+        <div class="grid-dashboard">
+            <div class="chart-card">
+                <h3>Educação vs Saúde Mental</h3>
+                <div class="chart-butterflies" role="img" aria-label="Gráfico ilustrativo em roxo com barras e cinco borboletas; sem dados quantitativos">
+                    <span class="chart-butterfly chart-butterfly-one" aria-hidden="true">🦋</span>
+                    <span class="chart-butterfly chart-butterfly-two" aria-hidden="true">🦋</span>
+                    <span class="chart-butterfly chart-butterfly-three" aria-hidden="true">🦋</span>
+                    <span class="chart-butterfly chart-butterfly-four" aria-hidden="true">🦋</span>
+                    <span class="chart-butterfly chart-butterfly-five" aria-hidden="true">🦋</span>
+                    <div class="chart-grid" aria-hidden="true">
+                        <span class="chart-bar" style="--bar-height: 34%"></span>
+                        <span class="chart-bar" style="--bar-height: 57%"></span>
+                        <span class="chart-bar" style="--bar-height: 43%"></span>
+                        <span class="chart-bar" style="--bar-height: 76%"></span>
+                        <span class="chart-bar" style="--bar-height: 63%"></span>
+                    </div>
+                    <span class="chart-caption">Visualização ilustrativa</span>
+                </div>
+                <p>Análise do impacto da carga de estudos no bem-estar psicológico dos jovens entrevistados.</p>
+            </div>
+            
+            <div class="chart-card">
+                <h3>Desigualdade Digital</h3>
+                <div class="chart-flower" role="img" aria-label="Gráfico ilustrativo em azul com barras e quatro flores; sem dados quantitativos">
+                    <span class="chart-flower-icon" aria-hidden="true">🌼</span>
+                    <span class="chart-flower-icon chart-flower-two" aria-hidden="true">🌷</span>
+                    <span class="chart-flower-icon chart-flower-three" aria-hidden="true">🌸</span>
+                    <span class="chart-flower-icon chart-flower-four" aria-hidden="true">🌻</span>
+                    <div class="chart-grid chart-grid-blue" aria-hidden="true">
+                        <span class="chart-bar chart-bar-blue" style="--bar-height: 48%"></span>
+                        <span class="chart-bar chart-bar-blue" style="--bar-height: 71%"></span>
+                        <span class="chart-bar chart-bar-blue" style="--bar-height: 39%"></span>
+                        <span class="chart-bar chart-bar-blue" style="--bar-height: 60%"></span>
+                        <span class="chart-bar chart-bar-blue" style="--bar-height: 82%"></span>
+                    </div>
+                    <span class="chart-caption chart-caption-blue">Visualização ilustrativa</span>
+                </div>
+                <p>Disparidade do acesso à internet banda larga conforme a faixa de renda familiar.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">💡 Propostas de Impacto Estratégico</h2>
+        <div class="grid-pilares">
+            <div class="pilar-card">
+                <h3>1. Inclusão Digital</h3>
+                <p>Criação e ampliação de polos comunitários de estudos com acesso gratuito à internet de alta velocidade e equipamentos para jovens de baixa renda.</p>
+            </div>
+            
+            <div class="pilar-card">
+                <h3>2. Apoio Socioemocional</h3>
+                <p>Implementação de programas de mentoria estudantil e acompanhamento psicossocial nas escolas públicas para reduzir a evasão escolar.</p>
+            </div>
+            
+            <div class="pilar-card">
+                <h3>3. Ensino do Futuro</h3>
+                <p>Oferta de cursos de capacitação técnica básica (programação, análise de dados e habilidades digitais) focados no mercado de trabalho.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Projeto Raio-X da Juventude. Desenvolvido com Python & GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
